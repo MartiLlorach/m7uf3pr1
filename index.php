@@ -7,6 +7,8 @@
  	<h1>Exemple de lectura de dades a MySQL</h1>
 
   <?php
+    require('dictionary.php');
+
     # (1.1) Connectem a MySQL (host,usuari,contrassenya)
     $conn = mysqli_connect('localhost','marti','');
 
@@ -33,11 +35,14 @@
     ";
     while( $registre = mysqli_fetch_assoc($resultat) )
  		{
- 			echo "<option value=$registre[code]>$registre[name]</option>";
+ 			echo "<option value=$registre[code]>$registre[name]".
+          // "<img src=https://raw.githubusercontent.com/hampusborgos/country-flags/main/png100px/$countryISOMapping[$registre['code']].png >".
+      "</option>";
  		}
     echo "</select>
         <input type=submit value=busca>
       </form>";
+
   ?>
 
 

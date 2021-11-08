@@ -14,6 +14,7 @@
   </head>
   <body>
     <?php
+
       # (1.1) Connectem a MySQL (host,usuari,contrassenya)
       $conn = mysqli_connect('localhost','marti','');
 
@@ -22,7 +23,11 @@
 
       if (isset($_POST['country'])){
    		# (2.1) creem el string de la consulta (query)
-     		$consulta = "SELECT * FROM city WHERE CountryCode = '$_POST[country]';";
+     		$consulta =  "SELECT c.Name as cityName, p.Name as countryName, c.CountryCode, c.District, c.Population
+                      FROM city c
+                      INNER JOIN country p ON c.CountryCode = p.Code
+                      WHERE c.CountryCode = 'BRA';";
+
 
      		# (2.2) enviem la query al SGBD per obtenir el resultat
      		$resultat = mysqli_query($conn, $consulta);
@@ -52,8 +57,8 @@
    			# (3.4) cadascuna de les columnes ha d'anar precedida d'un <td>
    			#	després concatenar el contingut del camp del registre
    			#	i tancar amb un </td>
-   			echo "\t\t<td>".$registre["Name"]."</td>\n";
-   			echo "\t\t<td>".$registre['CountryCode']."</td>\n";
+   			echo "\t\t<td>".$registre["cityName"]."</td>\n";
+   			echo "\t\t<td>".$registre['countryName']."</td>\n";
    			echo "\t\t<td>".$registre["District"]."</td>\n";
    			echo "\t\t<td>".$registre['Population']."</td>\n";
 
